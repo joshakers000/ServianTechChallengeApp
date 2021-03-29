@@ -11,7 +11,7 @@ except:
 
 try:
 	os.system("sudo scp -i WebSeverKeyPair.pem -r /dump ec2-user@" + EC2 + ":/home/ec2-user")
-	os.system("sudo scp -i WebSeverKeyPair.pem  dump/deploy.sh ec2-user@" +  EC2 + ":/home/ec2-user")
+	os.system("sudo scp -i WebSeverKeyPair.pem  deploy.sh ec2-user@" +  EC2 + ":/home/ec2-user")
 	os.system("ssh -i WebSeverKeyPair.pem ec2-user@" + EC2)
 except Exception as e:
 	print(e)
