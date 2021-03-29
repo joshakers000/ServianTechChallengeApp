@@ -16,6 +16,9 @@ This is my take on the ServianTechChallengeApp.
 # Dependencies
 - Python3
 - Deployed via ubuntu-20.04.2.0-desktop-amd64
+- aws cli with configured role
+- - specific role perms required unknown
+- - Just run with Admin privs
 
 # Instructions!
 - Please follow closely.
@@ -23,14 +26,14 @@ This is my take on the ServianTechChallengeApp.
 - Edit stackparams.json for customization.
 - - Change the DBPw and PersonalSSHCIDR ParameterValues.
 - - Each parameter shouuld be self explanatory.
-- "sudo python3 build.py"
+- ```sudo python3 build.py```
 - This will create an ssh key and create the stack.  
 - Stack creation will take approximately eight minutes to complete.
-- Make sure you obtain your RDS endpoint and EC2 endpoint.
+- Obtain your RDS endpoint and EC2 endpoint.
 - Update conf.toml w/ Database password and RDS endpoint.
-- "sudo python3 <EC2-Endpoint>"
+- ```sudo python3 <EC2-Endpoint>```
 - Once this finishes you should now be ssh'd into your web server.
-- "sudo bash deploy.sh"
+- ```sudo bash deploy.sh```
 - This will install all the dependencies and run the server.
 
 # Access Application
