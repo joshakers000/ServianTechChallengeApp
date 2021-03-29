@@ -12,3 +12,27 @@ This is my take on the ServianTechChallengeApp.
 - Disaster Recovery: Parameter for MultiAZ option available (not tested - should work though).
 - Security Groups: Proper rules in place for basic filtering.
 - NACLs - set to allow all for simplicity.
+
+# Dependencies
+- Python3
+- Deployed via ubuntu-20.04.2.0-desktop-amd64
+
+# Instructions!
+- Please follow closely.
+- Clone reposity.
+- Edit stackparams.json for customization.
+- - Change the DBPw and PersonalSSHCIDR ParameterValues.
+- - Each parameter shouuld be self explanatory.
+- "sudo python3 build.py"
+- This will create an ssh key and create the stack.  
+- Stack creation will take approximately eight minutes to complete.
+- Make sure you obtain your RDS endpoint and EC2 endpoint.
+- Update conf.toml w/ Database password and RDS endpoint.
+- "sudo python3 <EC2-Endpoint>"
+- Once this finishes you should now be ssh'd into your web server.
+- "sudo bash deploy.sh"
+- This will install all the dependencies and run the server.
+
+# Access Application
+- Visit the EC2-Endpoint from earlier and you should be good to go!
+- Congrats you have just deployed my rarely available webserver!
