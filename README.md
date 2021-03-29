@@ -1,6 +1,6 @@
 # ServianTechChallengeApp
 
-This is my take on the ServianTechChallengeApp.  
+This is my take on the ServianTechChallengeApp.
 
 # Architecture
 - 1 VPC, 2 public subnets (EC2), 1 private subnet (RDS)
@@ -31,6 +31,7 @@ This is my take on the ServianTechChallengeApp.
 - Stack creation will take approximately eight minutes to complete.
 - Obtain your RDS endpoint and EC2 endpoint.
 - Update conf.toml w/ Database password and RDS endpoint.
+- - conf.toml is found in dump/Te.../Te...
 - ```sudo python3 move.py <EC2-Endpoint>```
 - Once this finishes you should now be ssh'd into your web server.
 - ```sudo bash deploy.sh```
