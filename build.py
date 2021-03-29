@@ -5,7 +5,7 @@
 import os
 # 1. Make Keypair and change perms
 try:
-	os.system("sudo aws ec2 create-key-pair --key-name WebServerKP3 --query 'KeyMaterial' --output text > WebSeverKeyPair.pem")
+	os.system("sudo aws ec2 create-key-pair --key-name WebServerKP198 --query 'KeyMaterial' --output text > WebSeverKeyPair.pem")
 	os.system("sudo chmod 400 WebSeverKeyPair.pem")
 except Exception as e:
 	print(e)
