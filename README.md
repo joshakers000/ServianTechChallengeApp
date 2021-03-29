@@ -31,7 +31,7 @@ This is my take on the ServianTechChallengeApp.
 - Stack creation will take approximately eight minutes to complete.
 - Obtain your RDS endpoint and EC2 endpoint.
 - Update conf.toml w/ Database password and RDS endpoint.
-- ```sudo python3 <EC2-Endpoint>```
+- ```sudo python3 move.py <EC2-Endpoint>```
 - Once this finishes you should now be ssh'd into your web server.
 - ```sudo bash deploy.sh```
 - This will install all the dependencies and run the server.
