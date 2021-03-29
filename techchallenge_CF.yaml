@@ -11,22 +11,27 @@ Parameters:
   VpcCIDR:
     Description: Please enter the IP range (CIDR notation) for this VPC
     Type: String
-    Default: 172.14.0.0/16
+    Default: 172.4.0.0/16
 
   PublicSubnet1CIDR:
     Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
     Type: String
-    Default: 172.14.1.0/24
+    Default: 172.4.1.0/24
+    
+  PublicSubnet2CIDR:
+    Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
+    Type: String
+    Default: 172.4.3.0/24
 
   PrivateSubnet1CIDR:
     Description: Please enter the IP range (CIDR notation) for the private subnet in the first Availability Zone
     Type: String
-    Default: 172.14.2.0/24
+    Default: 172.4.2.0/24
     
   PersonalSSHCIDR:
     Description: Please enter the IP range (CIDR notation) to ssh into your webserver.  
     Type: String
-    Default: 172.14.2.2/32
+    Default: 172.4.2.2/32
     
   RDSAZ:
     Description: Please enter the az (us-east-1a) for the az.
@@ -43,6 +48,12 @@ Parameters:
     Type: String
     Default: false
     AllowedValues: [true, false]
+    
+  DBPw:
+    Description: This sets the value for the DB password, used to avoid needing secrets.
+    Type: String
+    Default: idontknoW
+    
 
 Resources:
   VPC:
@@ -80,6 +91,20 @@ Resources:
           Value: !Sub ${EnvironmentName} Public Subnet (AZ1)
 
 
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: "us-east-1d"
+      CidrBlock: !Ref PublicSubnet2CIDR
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Sub ${EnvironmentName} Public Subnet2 (AZ1)
+
+
+
+
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -114,6 +139,13 @@ Resources:
       SubnetId: !Ref PublicSubnet1
 
 
+  PublicSubnet1RouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet2
+
+
 
   PrivateRouteTable1:
     Type: AWS::EC2::RouteTable
@@ -129,6 +161,7 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable1
       SubnetId: !Ref PrivateSubnet1
+      
   mySubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties: 
@@ -301,7 +334,7 @@ Resources:
       IpProtocol: tcp
       FromPort: 5432
       ToPort: 5432
-      CidrIp: !Ref PublicSubnet1CIDR
+      CidrIp: !Ref VpcCIDR
   PrivSecGrpEgr1:
     Type: AWS::EC2::SecurityGroupEgress
     Properties:
@@ -309,14 +342,47 @@ Resources:
       IpProtocol: -1
       FromPort: -1
       ToPort: -1
-      CidrIp: !Ref PublicSubnet1CIDR
+      CidrIp: !Ref VpcCIDR
+  
+  WebServerRole:  
+    Type: AWS::IAM::Role
+    Properties: 
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Description: String
+      ManagedPolicyArns: 
+        - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+      RoleName: EC2S3_Access
+  
+  
+  WebServerInstProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      Roles: 
+        - Ref: WebServerRole
       
   EC2PubInstance: 
     Type: AWS::EC2::Instance
     Properties: 
       ImageId: "ami-0915bcb5fa77e4892"
       KeyName: "vpc"
+      IamInstanceProfile: !Ref WebServerInstProfile
       InstanceType: "t2.micro"
+      UserData:
+        Fn::Base64: !Sub |
+          "#!/bin/bash"
+          sudo yum -y install go
+          sudo curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+          mkdir app
+          sudo aws s3 sync s3://servian /app
       Tags:
       - Key: Name
         Value: !Sub ${EnvironmentName} WebApp
@@ -342,7 +408,7 @@ Resources:
       Engine: postgres
       EngineVersion: 12.5
       MasterUsername: Postgres
-      MasterUserPassword: PostgresM
+      MasterUserPassword: !Ref DBPw
       MultiAZ: !Ref MultiAZbool
       Port: 5432
       PubliclyAccessible: false
@@ -372,5 +438,13 @@ Resources:
     Properties:
       SubnetId:
         Ref: PublicSubnet1
+      NetworkAclId:
+        Ref: MyPubNACL
+
+  myPubSubnetNetworkAclAssociation2:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId:
+        Ref: PublicSubnet2
       NetworkAclId:
         Ref: MyPubNACL
