@@ -1,0 +1,43 @@
+[
+    {
+        "ParameterKey": "EnvironmentName",
+        "ParameterValue": "TestStack"
+    },
+    {
+        "ParameterKey": "VpcCIDR",
+        "ParameterValue": "172.5.0.0/16"
+    },
+    {
+        "ParameterKey": "PublicSubnet1CIDR",
+        "ParameterValue": "172.5.1.0/24"
+    },
+    {
+        "ParameterKey": "PublicSubnet2CIDR",
+        "ParameterValue": "172.5.3.0/24"
+    },
+    {
+        "ParameterKey": "PrivateSubnet1CIDR",
+        "ParameterValue": "172.5.2.0/24"
+    },
+    {
+        "ParameterKey": "PersonalSSHCIDR",
+        "ParameterValue": "172.5.1.2/32"
+    },
+    {
+        "ParameterKey": "RDSAZ",
+        "ParameterValue": "us-east-1b"
+    },
+    {
+        "ParameterKey": "DBInstanceClassParam",
+        "ParameterValue": "db.t2.micro"
+    },
+    {
+        "ParameterKey": "MultiAZbool",
+        "ParameterValue": "false"
+    },
+    {
+        "ParameterKey": "DBPw",
+        "ParameterValue": "idontknoW"
+    }
+    
+]
