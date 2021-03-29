@@ -1,6 +1,10 @@
 #!bin/bash
 sudo yum -y install go
 cd ../
+mkdir root
+mkdir root/go
+mkdir root/go/bin
+cd ec2-user
 mkdir go
 mkdir go/bin
 curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
