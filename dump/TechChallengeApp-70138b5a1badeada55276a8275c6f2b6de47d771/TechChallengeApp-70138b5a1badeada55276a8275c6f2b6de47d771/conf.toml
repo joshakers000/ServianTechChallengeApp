@@ -1,0 +1,7 @@
+"DbUser" = "Postgres"
+"DbPassword" = "idontknoW"
+"DbName" = "app"
+"DbPort" = "5432"
+"DbHost" = "wrvpbtztyyjc58.cinzxj2nrdpe.us-east-1.rds.amazonaws.com"
+"ListenHost" = "0.0.0.0"
+"ListenPort" = "80"
