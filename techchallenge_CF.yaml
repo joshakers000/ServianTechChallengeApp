@@ -373,7 +373,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties: 
       ImageId: "ami-0915bcb5fa77e4892"
-      KeyName: "WebServerKP777"
+      KeyName: "WebServerKP778"
       IamInstanceProfile: !Ref WebServerInstProfile
       InstanceType: "t2.micro"
       UserData:
