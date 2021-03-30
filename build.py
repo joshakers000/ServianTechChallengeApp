@@ -23,7 +23,7 @@ password = get_random_password(random.randint(20,30))
 
 # 1. Make Keypair and change perms
 try:
-	os.system("sudo aws ec2 create-key-pair --key-name WebServerKP777 --query 'KeyMaterial' --output text > WebSeverKeyPair.pem")
+	os.system("sudo aws ec2 create-key-pair --key-name WebServerKP778 --query 'KeyMaterial' --output text > WebSeverKeyPair.pem")
 	os.system("sudo chmod 400 WebSeverKeyPair.pem")
 except Exception as e:
 	print(e)
