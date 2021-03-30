@@ -125,11 +125,4 @@ print("Please wait for packages to install.")
 time.sleep(85)
 
 os.system("ssh -i WebSeverKeyPair.pem ec2-user@" + EC2Endpoint)
-#stdin, stdout, stderr = client.exec_command('sudo bash deployAutomate.sh')
 
-#stdin, stdout, stderr = client.exec_command('cd dump/TechChallengeApp-70138b5a1badeada55276a8275c6f2b6de47d771/TechChallengeApp-70138b5a1badeada55276a8275c6f2b6de47d771')
-#----------------
-#stdin, stdout, stderr = client.exec_command('sudo bash build.sh')
-#stdin, stdout, stderr = client.exec_command('cd dist')
-#stdin, stdout, stderr = client.exec_command('sudo ./TechChallengeApp updatedb -s')
-#stdin, stdout, stderr = client.exec_command('sudo ./TechChallengeApp serve')
