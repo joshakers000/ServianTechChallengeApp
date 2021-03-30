@@ -373,7 +373,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties: 
       ImageId: "ami-0915bcb5fa77e4892"
-      KeyName: "WebServerKP198"
+      KeyName: "WebServerKP777"
       IamInstanceProfile: !Ref WebServerInstProfile
       InstanceType: "t2.micro"
       UserData:
@@ -448,3 +448,12 @@ Resources:
         Ref: PublicSubnet2
       NetworkAclId:
         Ref: MyPubNACL
+        
+        
+Outputs:
+  EC2DNSName:
+    Description: The public IP of the EC2 Instance
+    Value: !GetAtt EC2PubInstance.PublicIp
+  InstanceID:
+    Description: DNS name of RDS instance
+    Value: !GetAtt RDSInstance.Endpoint.Address
