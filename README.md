@@ -40,3 +40,7 @@ This is my take on the ServianTechChallengeApp.
 # Access Application
 - Visit the EC2-Endpoint from earlier and you should be good to go!
 - Congrats you have just deployed my rarely available webserver!
+
+
+# Intended Changes
+- While this has already been submitted I am currently working to fully automate the process by polling the stack, checking its status and using outputs.
