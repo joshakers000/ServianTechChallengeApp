@@ -14,7 +14,11 @@ minutesLapsed = 0
 
 def get_random_password(length):
     # Return random password from upper/lower/digits
-    letters = string.ascii_letters + string.digits
+    letters = string.ascii_letters + string.digits + string.digits + string.digits + string.digits + string.digits\
+    + ''.join(random.choice(string.digits) for i in range(2))
+    #shuffle character space
+    letters = ''.join(random.sample(letters,(len(letters))))
+    #Generate password.
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
 
